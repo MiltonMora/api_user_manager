@@ -1,0 +1,42 @@
+version: '3.5'
+
+services:
+  api_user:
+    container_name: api_user
+    build:
+      context: docker
+      args:
+        UID: $U_ID
+    volumes:
+      - ./:/appdata/www
+    ###> XDEBUG 3 ###
+    environment:
+      XDEBUG_CLIENT_HOST: 172.17.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=api_user
+    ports:
+      - '1000:8000'
+    networks:
+      - api_user-network
+    depends_on:
+      - api_user-postgres
+
+  api_user-postgres:
+    container_name: api_user-postgres
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: passwd
+      POSTGRES_DB: api_user
+    volumes:
+      - api_user-postgres-pgsql-data:/var/lib/postgresql/data:rw
+    networks:
+      - api_user-network
+
+networks:
+  api_user-network:
+
+volumes:
+  api_user-postgres-pgsql-data:
