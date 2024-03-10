@@ -4,18 +4,27 @@ namespace App\Domain\User\Model;
 
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    private ?int $id;
+    private string $id;
     private string $name;
+    private string $surnames;
     private string $password;
     private string $email;
     private array $roles;
-    public function __construct(
+    private \DateTime $createdAt;
+    private \DateTime $updatedAt;
 
-    ) {}
+    public function __construct()
+    {
+        $this->id = Uuid::v4()->toRfc4122();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
 
     public function setName(string $name): void
     {
@@ -38,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getId(): ?int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -57,11 +66,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
 
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function markAsUpdated():void
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function getSurnames(): string
+    {
+        return $this->surnames;
+    }
+
+    public function setSurnames(string $surnames): void
+    {
+        $this->surnames = $surnames;
+    }
     public function getRoles(): array
     {
-        return ['ROLE_USER'];
-        // TODO: Implement getRoles() method.
+        return $this->roles;
     }
 
     public function eraseCredentials()

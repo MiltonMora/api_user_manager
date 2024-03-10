@@ -8,12 +8,17 @@
             name="App\Domain\User\Model\User"
             table="users"
     >
-        <id name="id" type="integer" column="id">
-            <generator strategy="IDENTITY"/>
-        </id>
+        <id name="id" type="string" column="id" length="36"/>
         <field name="name" column="name"/>
+        <field name="surnames" column="surnames"/>
         <field name="email" column="email" unique="true"/>
         <field name="roles" column="roles"/>
         <field name="password" column="password"/>
+        <field name="createdAt" column="created_at" type="datetime"/>
+        <field name="updatedAt" column="updated_at" type="datetime"/>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
     </entity>
 </doctrine-mapping>
