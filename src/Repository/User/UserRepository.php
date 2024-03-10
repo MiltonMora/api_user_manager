@@ -33,7 +33,7 @@ class UserRepository extends ServiceEntityRepository implements UserInterface, P
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
         } catch (UniqueConstraintViolationException) {
-            throw new \Exception('El usuario '. $user->getEmail() . ' ya existe' );
+            throw new \Exception('A ocurrido un error, intente de nuevo o hable con el adminstrador' );
         }
     }
 
