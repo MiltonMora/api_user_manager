@@ -20,6 +20,7 @@ class UserController extends AbstractGeneralController
             $this->commandBus->handle(
                 new UserCreate(
                     $request->request->get('name'),
+                    $request->request->get('surname'),
                     $request->request->get('password'),
                     $request->request->get('email'))
             );

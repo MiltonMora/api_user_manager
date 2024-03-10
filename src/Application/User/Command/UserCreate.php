@@ -9,6 +9,9 @@ readonly class UserCreate
     private string $name;
 
     #[Assert\NotBlank]
+    private string $surname;
+
+    #[Assert\NotBlank]
     #[Assert\GreaterThan(5)]
     private string $password;
 
@@ -18,9 +21,14 @@ readonly class UserCreate
     )]
     private string $email;
 
-    public function __construct(string $name, string $password, string $email)
-    {
+    public function __construct(
+        string $name,
+        string $surname,
+        string $password,
+        string $email
+    ) {
         $this->name = $name;
+        $this->surname = $surname;
         $this->password = $password;
         $this->email = $email;
     }
@@ -28,6 +36,11 @@ readonly class UserCreate
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
     }
 
     public function getPassword(): string

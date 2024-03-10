@@ -33,6 +33,7 @@ readonly class UserCreateHandler
         $user = new UserModel();
         $hashedPassword = $this->userPasswordHasher->hashPassword($user, $command->getPassword());
         $user->setName($command->getName());
+        $user->setSurnames($command->getSurname());
         $user->setEmail($command->getEmail());
         $user->setPassword($hashedPassword);
         $user->setRoles(['ROLE_USER']);

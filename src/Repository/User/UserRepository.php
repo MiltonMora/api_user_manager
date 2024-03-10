@@ -5,6 +5,7 @@ namespace App\Repository\User;
 use App\Domain\User\Model\User;
 use App\Domain\User\Ports\UserInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -28,8 +29,12 @@ class UserRepository extends ServiceEntityRepository implements UserInterface, P
 
     public function save(User $user): void
     {
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
+        try {
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+        } catch (UniqueConstraintViolationException) {
+            throw new \Exception('El usuario '. $user->getEmail() . ' ya existe' );
+        }
     }
 
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
