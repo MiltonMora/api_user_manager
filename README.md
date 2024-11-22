@@ -75,23 +75,19 @@
 ### estructura de carpetas para que funcione la inyeccion de dependencias
 ```
     src
-    |---Application
-    |   |---AlgunaAplicacion
-    |       |---Command
-    |       |   |---AlgoCommand.php
-    |       |---AlgoHandler.php
-    |---Command
-    |   |---AlgunaAplicacion
-    |       |---EjecutaAlgoCommand.php
-    |---Controller
-    |   |---AlgunaAplicacion
-    |       |---RutaController.php
-    |---Service
-    |   |---AlgunaAplicacion
-    |       |---AlgunService.php
-    |       |---AlgunClient.php
-    |---Repository
-    |   |---AlgunaAplicacion
-    |       |---AlgunRepository.php
-    |---...
+       User
+          |---Application
+          |    |---Command
+          |    |   |---AlgoCommand.php
+          |    |---AlgoHandler.php
+          |---Command
+          |    |---EjecutaAlgoCommand.php
+          |---Controller
+          |    |---RutaController.php
+          |---Service
+          |    |---AlgunService.php
+          |    |---AlgunClient.php
+          |---Repository
+          |    |---AlgunRepository.php
+          |---...
 ```
