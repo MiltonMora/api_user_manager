@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Domain\User\Model;
+namespace App\User\Domain\Model;
 
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Uid\Uuid;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -12,6 +13,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $id;
     private string $name;
     private string $surnames;
+
+    #[Ignore]
     private string $password;
     private string $email;
     private array $roles;

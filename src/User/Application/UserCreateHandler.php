@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Application\User;
+namespace App\User\Application;
 
+use App\User\Application\Command\UserCreate;
+use App\User\Domain\Model\User as UserModel;
+use App\User\Domain\Ports\UserInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use App\Application\User\Command\UserCreate;
-use App\Domain\User\Model\User as UserModel;
-use App\Domain\User\Ports\UserInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

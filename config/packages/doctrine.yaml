@@ -10,7 +10,7 @@ doctrine:
         mappings:
             User:
                 type: xml
-                prefix: App\Domain\User\Model
+                prefix: App\User\Domain\Model
                 dir: '%kernel.project_dir%/config/orm/mapping/User'
                 is_bundle: false
 

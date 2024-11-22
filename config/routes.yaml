@@ -1,5 +1,5 @@
-controllers:
-    resource: ../src/Controller/
+users:
+    resource: ../src/User/Controller/
     type: attribute
 
 api_login_check:

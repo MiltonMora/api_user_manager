@@ -23,8 +23,8 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Application\:
-        resource: '../src/Application/*'
-        exclude: '../src/Application/*/Command/*'
+    App\User\Application\:
+        resource: '../src/User/Application/*'
+        exclude: '../src/User/Application/*/Command/*'
         tags:
             - { name: tactician.handler, typehints: true }

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller\Api\User;
+namespace App\User\Controller\Api;
 
-use App\Application\User\Command\UserCreate;
-use App\Controller\AbstractGeneralController;
+use App\AbstractGeneralController;
+use App\User\Application\Command\UserCreate;
+use App\User\Application\Command\UserList;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/user')]
@@ -25,6 +25,18 @@ class UserController extends AbstractGeneralController
                     $request->request->get('email'))
             );
             return $this->json([], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    #[Route('/list', name: 'app_user_list', methods: ['GET'])]
+    public function list()
+    {
+        try {
+            return $this->json($this->commandBus->handle(new UserList()), Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
                 'message' => $e->getMessage()

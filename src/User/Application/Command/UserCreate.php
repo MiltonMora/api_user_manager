@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Application\User\Command;
+namespace App\User\Application\Command;
 
 use Symfony\Component\Validator\Constraints as Assert;
+
 readonly class UserCreate
 {
     #[Assert\NotBlank]

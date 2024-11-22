@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Repository\User;
+namespace App\User\Repository;
 
-use App\Domain\User\Model\User;
-use App\Domain\User\Ports\UserInterface;
+use App\User\Domain\Dto\UserDTO;
+use App\User\Domain\Model\User;
+use App\User\Domain\Ports\UserInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,15 @@ class UserRepository extends ServiceEntityRepository implements UserInterface, P
         }
     }
 
+    public function listAll(): array
+    {
+        $data = $this->findAll();
+        if (empty($data)) {
+            return [];
+        }
+        return $this->userArrayToUserDTO($data);
+    }
+
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
@@ -46,5 +56,26 @@ class UserRepository extends ServiceEntityRepository implements UserInterface, P
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+
+    private function userArrayToUserDTO(array $users): array
+    {
+        $usersDTO = [];
+        foreach ($users as $user) {
+            $usersDTO[] = $this->UserToUserDTO($user);
+        }
+        return $usersDTO;
+
+    }
+
+    private function UserToUserDTO(User $user): UserDTO
+    {
+        return new UserDTO(
+            $user->getId(),
+            $user->getName(),
+            $user->getSurnames(),
+            $user->getEmail(),
+            $user->getRoles());
     }
 }
