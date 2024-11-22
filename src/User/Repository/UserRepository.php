@@ -34,7 +34,7 @@ class UserRepository extends ServiceEntityRepository implements UserInterface, P
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
         } catch (UniqueConstraintViolationException) {
-            throw new \Exception('A ocurrido un error, intente de nuevo o hable con el adminstrador' );
+            throw new \Exception('A ocurrido un error, intente de nuevo o hable con el adminstrador');
         }
     }
 
