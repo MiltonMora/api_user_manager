@@ -19,11 +19,14 @@ readonly class UserChangePasswordHandler
 
     public function handle(UserChangePassword $command): void
     {
+        $user = is_null($command->getIdUser())
+            ? $this->security->getUser()
+            : $this->userInterface->findById($command->getIdUser());
 
-        $user = $this->security->getUser();
         if(!$user instanceof User) {
             throw new BadRequestHttpException();
         }
+
         $hashedPassword = $this->userPasswordHasher->hashPassword($user, $command->getNewPassword());
         $user->setPassword($hashedPassword);
         $this->userInterface->save($user);

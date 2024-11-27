@@ -9,4 +9,6 @@ interface UserInterface
     public function save(User $user): void;
 
     public function listAll(): array;
+
+    public function findById(string $id): ?User;
 }

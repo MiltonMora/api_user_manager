@@ -3,6 +3,7 @@
 namespace App\User\Controller\Api;
 
 use App\AbstractGeneralController;
+use App\User\Application\Command\UserChangePassword;
 use App\User\Application\Command\UserCreate;
 use App\User\Application\Command\UserList;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -37,6 +38,23 @@ class AdminUserController extends AbstractGeneralController
     {
         try {
             return $this->json($this->commandBus->handle(new UserList()), Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    #[Route('/change-password', name: 'app_user_admin_change_password', methods: ['POST'])]
+    public function changePassword(Request $request): JsonResponse
+    {
+        try {
+            $this->commandBus->handle(
+                new UserChangePassword(
+                    $request->request->get('newPassword'),
+                    $request->request->get('userId'))
+            );
+            return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
                 'message' => $e->getMessage()

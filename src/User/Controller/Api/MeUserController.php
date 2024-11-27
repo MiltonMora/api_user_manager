@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MeUserController extends AbstractGeneralController
 {
     #[Route('/change-password', name: 'app_user_change_password', methods: ['POST'])]
-    public function create(Request $request): JsonResponse
+    public function changePassword(Request $request): JsonResponse
     {
         try {
             $this->commandBus->handle(new UserChangePassword($request->request->get('newPassword')));
