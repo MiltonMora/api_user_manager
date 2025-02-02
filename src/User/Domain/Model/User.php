@@ -18,6 +18,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
     private string $email;
     private array $roles;
+    private bool $isActive;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
 
@@ -26,12 +27,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = Uuid::v4()->toRfc4122();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->isActive = true;
     }
 
 
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $this->name = ucfirst(strtolower($name));
     }
 
     public function setPassword(string $password): void
@@ -41,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): void
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
     }
 
     public function setRoles(array $roles): void
@@ -91,8 +93,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setSurnames(string $surnames): void
     {
-        $this->surnames = $surnames;
+        $this->surnames = ucfirst(strtolower($surnames));
     }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
     public function getRoles(): array
     {
         return $this->roles;

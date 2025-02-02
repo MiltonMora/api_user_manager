@@ -3,35 +3,36 @@
 namespace App\User\Application;
 
 use App\Commons\Helpers\ValidateConstraints;
-use App\User\Application\Command\UserCreate;
+use App\User\Application\Command\UserChangeData;
+use App\User\Domain\Model\User;
 use App\User\Domain\Model\User as UserModel;
 use App\User\Domain\Ports\UserInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-readonly class UserCreateHandler
+readonly class UserChangeDataHandler
 {
     public function __construct(
+        private Security $security,
         private UserInterface               $userInterface,
-        private UserPasswordHasherInterface $userPasswordHasher,
         private ValidateConstraints $validateConstraints
     )
     {}
 
-    public function handle(UserCreate $command): void
+    public function handle(UserChangeData $command): void
     {
         $errors = $this->validateConstraints->validate($command);
         if (count($errors) > 0) {
             throw new BadRequestHttpException(json_encode($errors));
         }
 
-        $user = new UserModel();
-        $hashedPassword = $this->userPasswordHasher->hashPassword($user, $command->getPassword());
+        $user = $this->security->getUser();
+
+        if(!$user instanceof User){
+            throw new BadRequestHttpException('User not found');
+        }
         $user->setName($command->getName());
         $user->setSurnames($command->getSurname());
-        $user->setEmail($command->getEmail());
-        $user->setPassword($hashedPassword);
-        $user->setRoles(['ROLE_USER']);
         $this->userInterface->save($user);
     }
 

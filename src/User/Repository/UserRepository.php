@@ -36,7 +36,7 @@ class UserRepository extends ServiceEntityRepository implements UserInterface
 
     public function listAll(): array
     {
-        $data = $this->findAll();
+        $data = $this->findBy(['isActive' => true]);
         if (empty($data)) {
             return [];
         }
@@ -65,6 +65,8 @@ class UserRepository extends ServiceEntityRepository implements UserInterface
             $user->getName(),
             $user->getSurnames(),
             $user->getEmail(),
-            $user->getRoles());
+            $user->getRoles(),
+            $user->isActive()
+        );
     }
 }

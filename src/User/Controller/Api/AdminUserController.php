@@ -4,6 +4,7 @@ namespace App\User\Controller\Api;
 
 use App\AbstractGeneralController;
 use App\User\Application\Command\UserChangePassword;
+use App\User\Application\Command\UserChangeStatus;
 use App\User\Application\Command\UserCreate;
 use App\User\Application\Command\UserList;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -54,6 +55,21 @@ class AdminUserController extends AbstractGeneralController
                     $request->request->get('newPassword'),
                     $request->request->get('userId'))
             );
+            return $this->json([], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    #[Route('/change-status', name: 'app_user_admin_inactive', methods: ['PUT'])]
+    public function inactive(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        try {
+            $this->commandBus->handle(
+                new UserChangeStatus($data['userId']));
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
