@@ -21,10 +21,10 @@ class AdminUserController extends AbstractGeneralController
         try {
             $this->commandBus->handle(
                 new UserCreate(
-                    $request->request->get('name'),
-                    $request->request->get('surname'),
-                    $request->request->get('password'),
-                    $request->request->get('email'))
+                    $this->getContentValue('name'),
+                    $this->getContentValue('surname'),
+                    $this->getContentValue('password'),
+                    $this->getContentValue('email'))
             );
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
@@ -52,8 +52,9 @@ class AdminUserController extends AbstractGeneralController
         try {
             $this->commandBus->handle(
                 new UserChangePassword(
-                    $request->request->get('newPassword'),
-                    $request->request->get('userId'))
+                    $this->getContentValue('newPassword'),
+                    $this->getContentValue('userId')
+                )
             );
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
@@ -66,10 +67,9 @@ class AdminUserController extends AbstractGeneralController
     #[Route('/change-status', name: 'app_user_admin_inactive', methods: ['PUT'])]
     public function inactive(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
         try {
             $this->commandBus->handle(
-                new UserChangeStatus($data['userId']));
+                new UserChangeStatus($this->getContentValue('userId')));
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([

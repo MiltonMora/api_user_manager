@@ -17,7 +17,7 @@ class MeUserController extends AbstractGeneralController
     public function changePassword(Request $request): JsonResponse
     {
         try {
-            $this->commandBus->handle(new UserChangePassword($request->request->get('newPassword')));
+            $this->commandBus->handle(new UserChangePassword($this->getContentValue('newPassword')));
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
@@ -30,9 +30,11 @@ class MeUserController extends AbstractGeneralController
     #[Route('/change-data', name: 'app_user_change_data', methods: ['PUT'])]
     public function changeData(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
         try {
-            $this->commandBus->handle(new UserChangeData($data['name'],$data['surName']));
+            $this->commandBus->handle(new UserChangeData(
+                $this->getContentValue('name'),
+                $this->getContentValue('surName')
+            ));
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
