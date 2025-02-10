@@ -5,7 +5,6 @@ namespace App\User\Application;
 use App\Commons\Helpers\ValidateConstraints;
 use App\User\Application\Command\UserChangeData;
 use App\User\Domain\Model\User;
-use App\User\Domain\Model\User as UserModel;
 use App\User\Domain\Ports\UserInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
