@@ -2,6 +2,7 @@
 
 namespace App\User\Application;
 
+use App\Commons\Helpers\ValidateConstraints;
 use App\User\Application\Command\UserChangePassword;
 use App\User\Domain\Model\User;
 use App\User\Domain\Ports\UserInterface;
@@ -14,11 +15,17 @@ readonly class UserChangePasswordHandler
     public function __construct(
         private Security $security,
         private UserPasswordHasherInterface $userPasswordHasher,
-        private UserInterface $userInterface
+        private UserInterface $userInterface,
+        private ValidateConstraints $validateConstraints
     ){}
 
     public function handle(UserChangePassword $command): void
     {
+        $errors = $this->validateConstraints->validate($command);
+        if (count($errors) > 0) {
+            throw new BadRequestHttpException(json_encode($errors));
+        }
+
         $user = is_null($command->getIdUser())
             ? $this->security->getUser()
             : $this->userInterface->findById($command->getIdUser());
