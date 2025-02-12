@@ -6,6 +6,7 @@ use App\AbstractGeneralController;
 use App\User\Application\Command\UserChangePassword;
 use App\User\Application\Command\UserChangeStatus;
 use App\User\Application\Command\UserCreate;
+use App\User\Application\Command\UserGetById;
 use App\User\Application\Command\UserList;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +40,18 @@ class AdminUserController extends AbstractGeneralController
     {
         try {
             return $this->json($this->commandBus->handle(new UserList()), Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    #[Route('/{userId}', name: 'app_user_get', methods: ['GET'])]
+    public function getUserById(string $userId): JsonResponse
+    {
+        try {
+            return $this->json($this->commandBus->handle(new UserGetById($userId)), Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
                 'message' => $e->getMessage()
