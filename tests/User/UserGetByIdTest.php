@@ -4,9 +4,7 @@ namespace App\Tests\User;
 
 use App\Commons\Helpers\ValidateConstraints;
 use App\User\Application\Command\UserGetById;
-use App\User\Application\Command\UserList;
 use App\User\Application\UserGetByIdHandler;
-use App\User\Application\UserListHandler;
 use App\User\Domain\Model\User;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
