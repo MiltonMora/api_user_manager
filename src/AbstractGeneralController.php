@@ -11,7 +11,7 @@ class AbstractGeneralController extends AbstractController
     protected array $content;
 
     public function __construct(
-        CommandBus $commandBus
+        CommandBus $commandBus,
     ) {
         $this->commandBus = $commandBus;
         $this->content = [];
