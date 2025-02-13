@@ -18,7 +18,7 @@ class AbstractGeneralController extends AbstractController
         $this->content = [];
     }
 
-    protected function getContentValue(string $key)
+    protected function getContentValue(string $key): string | array
     {
         if (empty($this->content)) {
             $this->content = json_decode(
@@ -30,7 +30,7 @@ class AbstractGeneralController extends AbstractController
         return  array_key_exists($key, $this->content) ? $this->content[$key] : '';
     }
 
-    protected function getLocale()
+    protected function getLocale():string
     {
         return $this->container->get('request_stack')->getCurrentRequest()->getLocale();
     }

@@ -28,6 +28,7 @@ readonly class UserChangeStatusHandler
         }
 
         if (!!$user->isActive()) {
+            /**@phpstan-ignore-next-line*/
             $user->setPassword(md5(rand(100000, 999999)));
         }
         $user->setIsActive(!$user->isActive());

@@ -8,7 +8,7 @@ class ValidateConstraints
     public function __construct(private ValidatorInterface $validator)
     {}
 
-    public function validate($constraints): array {
+    public function validate(object $constraints): array {
         $result = [];
         $errors = $this->validator->validate($constraints);
         if (count($errors) > 0) {
