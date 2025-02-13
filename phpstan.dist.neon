@@ -1,0 +1,12 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+    level: 6
+    paths:
+        - src/
+    excludePaths:
+        - tests
+    ignoreErrors:
+        - '#type has no value type specified in iterable type array#'
+        - '#with no value type specified in iterable type array#'

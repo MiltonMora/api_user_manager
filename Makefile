@@ -47,3 +47,6 @@ code-style: ## Runs php-cs to fix code styling following Symfony rules
 
 test: ## Ejecuta PHPUnit dentro del contenedor
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/phpunit
+
+stan: ## Ejecuta PHPUnit dentro del contenedor
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/phpstan analyse
