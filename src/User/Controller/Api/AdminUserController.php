@@ -27,10 +27,11 @@ class AdminUserController extends AbstractGeneralController
                     $this->getContentValue('password'),
                     $this->getContentValue('email'))
             );
+
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -42,7 +43,7 @@ class AdminUserController extends AbstractGeneralController
             return $this->json($this->commandBus->handle(new UserList()), Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -54,7 +55,7 @@ class AdminUserController extends AbstractGeneralController
             return $this->json($this->commandBus->handle(new UserGetById($userId)), Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -69,10 +70,11 @@ class AdminUserController extends AbstractGeneralController
                     $this->getContentValue('userId')
                 )
             );
+
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -83,10 +85,11 @@ class AdminUserController extends AbstractGeneralController
         try {
             $this->commandBus->handle(
                 new UserChangeStatus($this->getContentValue('userId')));
+
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

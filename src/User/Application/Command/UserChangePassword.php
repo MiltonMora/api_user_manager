@@ -11,7 +11,6 @@ readonly class UserChangePassword
 
     private ?string $idUser;
 
-
     public function __construct(string $newPassword, ?string $idUser = null)
     {
         $this->newPassword = $newPassword;
@@ -27,6 +26,4 @@ readonly class UserChangePassword
     {
         return $this->idUser;
     }
-
-
 }

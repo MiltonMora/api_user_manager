@@ -50,3 +50,6 @@ test: ## Ejecuta PHPUnit dentro del contenedor
 
 stan: ## Ejecuta PHPUnit dentro del contenedor
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/phpstan analyse
+
+cs-check: ## Ejecuta PHPUnit dentro del contenedor
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/php-cs-fixer fix --dry-run --diff

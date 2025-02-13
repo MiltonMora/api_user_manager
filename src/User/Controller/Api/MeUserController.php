@@ -18,14 +18,14 @@ class MeUserController extends AbstractGeneralController
     {
         try {
             $this->commandBus->handle(new UserChangePassword($this->getContentValue('newPassword')));
+
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
 
     #[Route('/change-data', name: 'app_user_change_data', methods: ['PUT'])]
     public function changeData(Request $request): JsonResponse
@@ -35,10 +35,11 @@ class MeUserController extends AbstractGeneralController
                 $this->getContentValue('name'),
                 $this->getContentValue('surName')
             ));
+
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

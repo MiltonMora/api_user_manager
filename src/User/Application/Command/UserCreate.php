@@ -26,7 +26,7 @@ readonly class UserCreate
         string $name,
         string $surname,
         string $password,
-        string $email
+        string $email,
     ) {
         $this->name = $name;
         $this->surname = $surname;
@@ -53,5 +53,4 @@ readonly class UserCreate
     {
         return $this->email;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\User\Domain\Dto;
 
 class UserDTO
@@ -9,13 +10,14 @@ class UserDTO
     public string $email;
     public array $roles;
     public bool $isActive;
+
     public function __construct(
         string $id,
         string $name,
         string $surNames,
         string $email,
         array $roles,
-        bool $isActive
+        bool $isActive,
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -24,5 +26,4 @@ class UserDTO
         $this->roles = $roles;
         $this->isActive = $isActive;
     }
-
 }

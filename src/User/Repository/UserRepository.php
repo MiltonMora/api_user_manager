@@ -40,13 +40,14 @@ class UserRepository extends ServiceEntityRepository implements UserInterface
         if (empty($data)) {
             return [];
         }
+
         return $this->userArrayToUserDTO($data);
     }
 
-    public function findById(string $id): ?User {
+    public function findById(string $id): ?User
+    {
         return $this->find($id);
     }
-
 
     private function userArrayToUserDTO(array $users): array
     {
@@ -54,8 +55,8 @@ class UserRepository extends ServiceEntityRepository implements UserInterface
         foreach ($users as $user) {
             $usersDTO[] = $this->UserToUserDTO($user);
         }
-        return $usersDTO;
 
+        return $usersDTO;
     }
 
     private function UserToUserDTO(User $user): UserDTO

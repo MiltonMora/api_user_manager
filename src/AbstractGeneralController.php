@@ -12,13 +12,12 @@ class AbstractGeneralController extends AbstractController
 
     public function __construct(
         CommandBus $commandBus
-    )
-    {
+    ) {
         $this->commandBus = $commandBus;
         $this->content = [];
     }
 
-    protected function getContentValue(string $key): string | array
+    protected function getContentValue(string $key): string|array
     {
         if (empty($this->content)) {
             $this->content = json_decode(
@@ -27,14 +26,11 @@ class AbstractGeneralController extends AbstractController
             );
         }
 
-        return  array_key_exists($key, $this->content) ? $this->content[$key] : '';
+        return array_key_exists($key, $this->content) ? $this->content[$key] : '';
     }
 
-    protected function getLocale():string
+    protected function getLocale(): string
     {
         return $this->container->get('request_stack')->getCurrentRequest()->getLocale();
     }
-
-
-
 }

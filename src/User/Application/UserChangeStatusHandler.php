@@ -12,8 +12,9 @@ readonly class UserChangeStatusHandler
 {
     public function __construct(
         private UserInterface $userInterface,
-        private ValidateConstraints $validateConstraints
-    ){}
+        private ValidateConstraints $validateConstraints,
+    ) {
+    }
 
     public function handle(UserChangeStatus $command): void
     {
@@ -23,16 +24,15 @@ readonly class UserChangeStatusHandler
         }
         $user = $this->userInterface->findById($command->getIdUser());
 
-        if(!$user instanceof User) {
+        if (!$user instanceof User) {
             throw new BadRequestHttpException();
         }
 
-        if (!!$user->isActive()) {
+        if ((bool) $user->isActive()) {
             /**@phpstan-ignore-next-line*/
             $user->setPassword(md5(rand(100000, 999999)));
         }
         $user->setIsActive(!$user->isActive());
         $this->userInterface->save($user);
     }
-
 }

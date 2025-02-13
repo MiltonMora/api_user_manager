@@ -9,7 +9,6 @@ readonly class UserChangeStatus
     #[Assert\NotBlank]
     private string $idUser;
 
-
     public function __construct(string $idUser)
     {
         $this->idUser = $idUser;
@@ -19,6 +18,4 @@ readonly class UserChangeStatus
     {
         return $this->idUser;
     }
-
-
 }

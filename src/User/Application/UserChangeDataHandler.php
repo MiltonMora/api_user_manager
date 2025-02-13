@@ -13,10 +13,10 @@ readonly class UserChangeDataHandler
 {
     public function __construct(
         private Security $security,
-        private UserInterface               $userInterface,
-        private ValidateConstraints $validateConstraints
-    )
-    {}
+        private UserInterface $userInterface,
+        private ValidateConstraints $validateConstraints,
+    ) {
+    }
 
     public function handle(UserChangeData $command): void
     {
@@ -27,12 +27,11 @@ readonly class UserChangeDataHandler
 
         $user = $this->security->getUser();
 
-        if(!$user instanceof User){
+        if (!$user instanceof User) {
             throw new BadRequestHttpException('User not found');
         }
         $user->setName($command->getName());
         $user->setSurnames($command->getSurname());
         $this->userInterface->save($user);
     }
-
 }

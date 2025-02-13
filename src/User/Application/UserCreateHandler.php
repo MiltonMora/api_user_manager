@@ -12,11 +12,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 readonly class UserCreateHandler
 {
     public function __construct(
-        private UserInterface               $userInterface,
+        private UserInterface $userInterface,
         private UserPasswordHasherInterface $userPasswordHasher,
-        private ValidateConstraints $validateConstraints
-    )
-    {}
+        private ValidateConstraints $validateConstraints,
+    ) {
+    }
 
     public function handle(UserCreate $command): void
     {
@@ -34,5 +34,4 @@ readonly class UserCreateHandler
         $user->setRoles(['ROLE_USER']);
         $this->userInterface->save($user);
     }
-
 }

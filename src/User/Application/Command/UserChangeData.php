@@ -14,7 +14,7 @@ readonly class UserChangeData
 
     public function __construct(
         string $name,
-        string $surname
+        string $surname,
     ) {
         $this->name = $name;
         $this->surname = $surname;
@@ -29,5 +29,4 @@ readonly class UserChangeData
     {
         return $this->surname;
     }
-
 }

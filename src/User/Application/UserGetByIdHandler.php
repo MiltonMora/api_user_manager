@@ -12,8 +12,9 @@ readonly class UserGetByIdHandler
 {
     public function __construct(
         private UserInterface $userInterface,
-        private ValidateConstraints $validateConstraints
-    ){}
+        private ValidateConstraints $validateConstraints,
+    ) {
+    }
 
     public function handle(UserGetById $command): ?User
     {
@@ -21,7 +22,7 @@ readonly class UserGetByIdHandler
         if (count($errors) > 0) {
             throw new BadRequestHttpException(json_encode($errors));
         }
+
         return $this->userInterface->findById($command->getUserId());
     }
-
 }

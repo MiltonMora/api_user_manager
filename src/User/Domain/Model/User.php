@@ -9,7 +9,6 @@ use Symfony\Component\Uid\Uuid;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     private string $id;
     private string $name;
     private string $surnames;
@@ -29,7 +28,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updatedAt = new \DateTime();
         $this->isActive = true;
     }
-
 
     public function setName(string $name): void
     {
@@ -51,7 +49,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = $roles;
     }
 
-
     public function getId(): string
     {
         return $this->id;
@@ -71,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
+
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
@@ -81,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    public function markAsUpdated():void
+    public function markAsUpdated(): void
     {
         $this->updatedAt = new \DateTime();
     }
