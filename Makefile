@@ -48,8 +48,8 @@ code-style: ## Runs php-cs to fix code styling following Symfony rules
 test: ## Ejecuta PHPUnit dentro del contenedor
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/phpunit
 
-stan: ## Ejecuta PHPUnit dentro del contenedor
+stan: ## Ejecuta phpstan dentro del contenedor
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/phpstan analyse
 
-cs-check: ## Ejecuta PHPUnit dentro del contenedor
+cs-check: ## Ejecuta php-cs-fixer dentro del contenedor
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/php-cs-fixer fix --dry-run --diff
