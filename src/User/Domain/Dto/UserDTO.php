@@ -6,7 +6,7 @@ class UserDTO
 {
     public string $id;
     public string $name;
-    public string $surNames;
+    public string $surname;
     public string $email;
     public array $roles;
     public bool $isActive;
@@ -21,7 +21,7 @@ class UserDTO
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->surNames = $surNames;
+        $this->surname = $surNames;
         $this->email = $email;
         $this->roles = $roles;
         $this->isActive = $isActive;
