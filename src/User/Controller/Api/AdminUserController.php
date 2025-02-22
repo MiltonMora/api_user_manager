@@ -3,6 +3,7 @@
 namespace App\User\Controller\Api;
 
 use App\AbstractGeneralController;
+use App\User\Application\Command\UserChangeData;
 use App\User\Application\Command\UserChangePassword;
 use App\User\Application\Command\UserChangeStatus;
 use App\User\Application\Command\UserCreate;
@@ -85,6 +86,24 @@ class AdminUserController extends AbstractGeneralController
         try {
             $this->commandBus->handle(
                 new UserChangeStatus($this->getContentValue('userId')));
+
+            return $this->json([], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    #[Route('/change-data', name: 'app_admin_user_change_data', methods: ['PUT'])]
+    public function changeData(Request $request): JsonResponse
+    {
+        try {
+            $this->commandBus->handle(new UserChangeData(
+                $this->getContentValue('name'),
+                $this->getContentValue('surname'),
+                $this->getContentValue('id')
+            ));
 
             return $this->json([], Response::HTTP_OK);
         } catch (\Exception $e) {

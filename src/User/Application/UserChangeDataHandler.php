@@ -25,11 +25,14 @@ readonly class UserChangeDataHandler
             throw new BadRequestHttpException(json_encode($errors));
         }
 
-        $user = $this->security->getUser();
+        $user = is_null($command->getId())
+            ? $this->security->getUser()
+            : $this->userInterface->findById($command->getId());
 
         if (!$user instanceof User) {
             throw new BadRequestHttpException('User not found');
         }
+
         $user->setName($command->getName());
         $user->setSurnames($command->getSurname());
         $this->userInterface->save($user);

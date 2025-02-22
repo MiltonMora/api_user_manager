@@ -33,7 +33,7 @@ class MeUserController extends AbstractGeneralController
         try {
             $this->commandBus->handle(new UserChangeData(
                 $this->getContentValue('name'),
-                $this->getContentValue('surName')
+                $this->getContentValue('surname')
             ));
 
             return $this->json([], Response::HTTP_OK);
