@@ -34,7 +34,7 @@ class UserCreateHandlerTest extends TestCase
 
     public function testHandleSuccess(): void
     {
-        $command = new UserCreate('John', 'Doe', 'securepassword', 'john.doe@example.com');
+        $command = new UserCreate('John', 'Doe', 'securepassword', 'john.doe@example.com', '', '', '', 'ROLE_USER', '');
 
         $this->validateConstraints
             ->method('validate')
@@ -54,7 +54,7 @@ class UserCreateHandlerTest extends TestCase
 
     public function testHandleValidationError(): void
     {
-        $command = new UserCreate('', '', 'short', 'invalid-email');
+        $command = new UserCreate('', '', 'short', 'invalid-email', '', '', '', '', '');
 
         $this->validateConstraints
             ->method('validate')
@@ -67,7 +67,7 @@ class UserCreateHandlerTest extends TestCase
 
     public function testHandleInsertError(): void
     {
-        $command = new UserCreate('John', 'Doe', 'securepassword', 'john.doe@example.com');
+        $command = new UserCreate('John', 'Doe', 'securepassword', 'john.doe@example.com', '', '', '', 'ROLE_USER', '');
 
         $this->userInterface
             ->expects($this->once())
