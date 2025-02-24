@@ -12,6 +12,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $id;
     private string $name;
     private string $surnames;
+    private ?string $phone;
+    private ?string $country;
+    private ?string $community;
+    private ?string $address;
 
     #[Ignore]
     private string $password;
@@ -107,6 +111,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         return $this->roles;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
+    }
+
+    public function getCommunity(): ?string
+    {
+        return $this->community;
+    }
+
+    public function setCommunity(?string $community): void
+    {
+        $this->community = $community;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
     }
 
     public function eraseCredentials(): void

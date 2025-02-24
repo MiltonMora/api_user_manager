@@ -22,16 +22,34 @@ readonly class UserCreate
     )]
     private string $email;
 
+    private ?string $phone;
+    private ?string $address;
+    private ?string $country;
+    private ?string $community;
+
+    #[Assert\NotBlank]
+    private string $rol;
+
     public function __construct(
         string $name,
         string $surname,
         string $password,
         string $email,
-    ) {
+        ?string $phone,
+        ?string $address,
+        ?string $country,
+        ?string $rol,
+        ?string $community)
+    {
         $this->name = $name;
         $this->surname = $surname;
         $this->password = $password;
         $this->email = $email;
+        $this->phone = $phone;
+        $this->address = $address;
+        $this->country = $country;
+        $this->community = $community;
+        $this->rol = $rol;
     }
 
     public function getName(): string
@@ -52,5 +70,30 @@ readonly class UserCreate
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function getCommunity(): ?string
+    {
+        return $this->community;
+    }
+
+    public function getRol(): string
+    {
+        return $this->rol;
     }
 }

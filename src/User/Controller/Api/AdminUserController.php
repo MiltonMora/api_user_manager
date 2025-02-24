@@ -26,7 +26,12 @@ class AdminUserController extends AbstractGeneralController
                     $this->getContentValue('name'),
                     $this->getContentValue('surname'),
                     $this->getContentValue('password'),
-                    $this->getContentValue('email'))
+                    $this->getContentValue('email'),
+                    $this->getContentValue('phone'),
+                    $this->getContentValue('address'),
+                    $this->getContentValue('country'),
+                    $this->getContentValue('rol'),
+                    $this->getContentValue('community'))
             );
 
             return $this->json([], Response::HTTP_OK);

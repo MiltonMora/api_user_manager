@@ -31,7 +31,11 @@ readonly class UserCreateHandler
         $user->setSurnames($command->getSurname());
         $user->setEmail($command->getEmail());
         $user->setPassword($hashedPassword);
-        $user->setRoles(['ROLE_USER']);
+        $user->setPhone($command->getPhone());
+        $user->setAddress($command->getAddress());
+        $user->setCountry($command->getCountry());
+        $user->setCommunity($command->getCommunity());
+        $user->setRoles([$command->getRol()]);
         $this->userInterface->save($user);
     }
 }

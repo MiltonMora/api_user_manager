@@ -13,6 +13,10 @@
         <field name="surnames" column="surnames"/>
         <field name="email" column="email" unique="true"/>
         <field name="roles" column="roles"/>
+        <field name="phone" column="phone" nullable="true"/>
+        <field name="country" column="country" nullable="true"/>
+        <field name="community" column="community" nullable="true"/>
+        <field name="address" column="address" nullable="true"/>
         <field name="password" column="password"/>
         <field name="isActive" column="active" type="boolean"/>
         <field name="createdAt" column="created_at" type="datetime"/>
