@@ -9,6 +9,9 @@ use Symfony\Component\Uid\Uuid;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const ROLE_DOCTOR = 'ROLE_DOCTOR';
+    public const ROLE_PATIENT = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
     private string $id;
     private string $name;
     private string $surnames;

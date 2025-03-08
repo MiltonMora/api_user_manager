@@ -2,5 +2,9 @@ users:
     resource: ../src/User/Controller/
     type: attribute
 
+record:
+    resource: ../src/Record/Controller/
+    type: attribute
+
 api_login_check:
     path: /login_check

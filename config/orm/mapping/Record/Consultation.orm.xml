@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity repository-class="App\Record\Repository\ConsultationRepository"
+            name="App\Record\Domain\Model\Consultation"
+            table="consultation"
+    >
+        <id name="id" type="string" column="id" length="36"/>
+
+        <many-to-one field="doctor" target-entity="App\User\Domain\Model\User" fetch="EAGER">
+            <join-column name="doctor_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="patient" target-entity="App\User\Domain\Model\User" fetch="EAGER">
+            <join-column name="patient_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="medicalRecord" target-entity="App\Record\Domain\Model\MedicalRecord" fetch="EAGER">
+            <join-column name="medical_record_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <field name="dateStart" column="date_start" type="datetime"/>
+        <field name="dateEnd" column="date_end" type="datetime" nullable="true"/>
+        <field name="notes" column="notes" type="text" nullable="true"/>
+
+        <field name="createdAt" column="created_at" type="datetime"/>
+        <field name="updatedAt" column="updated_at" type="datetime"/>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
+        </lifecycle-callbacks>
+    </entity>
+</doctrine-mapping>

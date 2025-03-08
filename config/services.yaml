@@ -28,3 +28,9 @@ services:
         exclude: '../src/User/Application/*/Command/*'
         tags:
             - { name: tactician.handler, typehints: true }
+
+    App\Record\Application\:
+        resource: '../src/Record/Application/*'
+        exclude: '../src/Record/Application/*/Command/*'
+        tags:
+            - { name: tactician.handler, typehints: true }

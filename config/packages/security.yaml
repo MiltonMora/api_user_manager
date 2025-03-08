@@ -28,6 +28,10 @@ security:
             pattern: ^/admin
             stateless: true
             jwt: ~
+        record:
+            pattern: ^/record
+            stateless: true
+            jwt: ~
         me:
             pattern: ^/me
             stateless: true
@@ -49,6 +53,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/record, roles: [ROLE_DOCTOR, ROLE_ADMIN] }
          - { path: ^/api, roles: ROLE_USER }
          - { path: ^/me, roles: IS_AUTHENTICATED_FULLY }
 
